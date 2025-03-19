@@ -7,19 +7,17 @@
 <body class="text-center" style="justify-content:center">
 
     <main class="form-signin card">
-        <form>
+        <form asp-action="Login" method="post">
             <img class="mb-4" src="https://static.vagas.com.br/portais-de-carreira/images/headers/original/fi-group-logo-com-a-escrita-em-azul.png?1653657031" alt="" width="120" height="57">
             <h1 class="h3 mb-3 fw-normal">Inovação Financeira</h1>
 
             <div class="form-floating mb-3">
-                <input type="email" class="form-control" id="floatingInput" placeholder="adm.vh@fi-group.com">
+                <input type="text" class="form-control" id="floatingInput" name="username" placeholder="adm.vh@fi-group.com">
                 <label for="floatingInput">Endereço de Email</label>
-                <div data-lastpass-icon-root="" style="position: relative !important; height: 0px !important; width: 0px !important; float: left !important;"></div>
             </div>
             <div class="form-floating">
-                <input type="password" class="form-control" id="floatingPassword" placeholder="imaginaumasenha">
+                <input type="password" class="form-control" id="floatingPassword" name="password" placeholder="imaginaumasenha">
                 <label for="floatingPassword">Digite sua Senha</label>
-                <div data-lastpass-icon-root="" style="position: relative !important; height: 0px !important; width: 0px !important; float: left !important;"></div>
             </div>
 
             <div class="checkbox mb-3">
@@ -27,14 +25,9 @@
                     <input type="checkbox" value="remember-me"> Lembre de mim
                 </label>
             </div>
-            <button class="btn btn-primary rounded-pill px-3" type="submit" asp-controller="Home" asp-action="Services">Entrar</button>
+            <button class="btn btn-primary rounded-pill px-3" type="submit">Entrar</button>
             <br />
-            <button class="btn btn-primary rounded-pill px-3 mt-2" type="submit"  asp-controller="Home" asp-action="Login">Criar Conta</button>
+            <button class="btn btn-primary rounded-pill px-3 mt-2" type="submit" asp-controller="Home" asp-action="SignUp">Criar Conta</button>
         </form>
     </main>
-
-
-
-
-
 </body>

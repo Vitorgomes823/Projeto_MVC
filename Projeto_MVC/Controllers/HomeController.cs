@@ -1,4 +1,8 @@
 using System.Diagnostics;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Projeto_MVC.Models;
 
@@ -13,22 +17,47 @@ public class HomeController : Controller
         _logger = logger;
     }
 
+    private static readonly List<UserModel> Users = new List<UserModel>
+        {
+            new UserModel { Username = "User@Teste1", Password = "SenhaTeste1" },
+            new UserModel { Username = "User@Teste2", Password = "SenhaTeste2" }
+        };
+
+    [AllowAnonymous]
     public IActionResult Index()
     {
+        if (!User.Identity.IsAuthenticated)
+        {
+            return View("Index");
+        }
+
         HomeModel home = new HomeModel();
         home.UserName = "adimin";
         home.UserEmail = "adm.vh@fi-group.com";
         return View(home);
     }
-
+    [AllowAnonymous]
     public IActionResult Privacy()
     {
         return View();
     }
-
-    public IActionResult Login()
+    [HttpPost]
+    [AllowAnonymous]
+    public async Task<IActionResult> Login(string username, string password)
     {
-        return View();
+        var user = Users.SingleOrDefault(u => u.Username == username && u.Password == password);
+        if (user == null)
+        {
+            ModelState.AddModelError("", "Invalid username or password");
+            return View("Index");
+        }
+
+        var claims = new[] { new Claim(ClaimTypes.Name, user.Username) };
+        var identity = new ClaimsIdentity(claims, "BasicAuthentication");
+        var principal = new ClaimsPrincipal(identity);
+        await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+
+        return RedirectToAction("Services");
     }
 
     public IActionResult Services()
@@ -42,6 +71,12 @@ public class HomeController : Controller
     }
 
     public IActionResult Edit()
+    {
+        return View();
+    }
+
+    [AllowAnonymous]
+    public IActionResult SignUp()
     {
         return View();
     }
