@@ -4,12 +4,12 @@
     ViewData["Title"] = "Fi Group Finance";
 }
 
-<body class="text-center" style="justify-content:center">
+<body class="text-center" style="justify-content:center; overflow: hidden">
     @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
     {
         <div class="text-danger" style="margin-bottom:5px">@error.ErrorMessage</div>
     }
-    <main class="form-signin card">
+    <main class="form-signin card" style="margin-top: 5%">
         <form asp-action="Login" method="post">
             <input type="hidden" name="_method" value="PATCH" />
             <img class="mb-4" src="https://static.vagas.com.br/portais-de-carreira/images/headers/original/fi-group-logo-com-a-escrita-em-azul.png?1653657031" alt="" width="120" height="57">
