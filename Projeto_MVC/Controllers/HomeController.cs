@@ -86,6 +86,20 @@ public class HomeController : Controller
         return View();
     }
 
+    [HttpPost]
+    public IActionResult IncomeTaxCalculation(IncomeTaxModel model)
+    {
+        if (ModelState.IsValid)
+        {
+            var imposto = model.CalcularImposto(); // Chamando o método diretamente na Model
+            ViewBag.Imposto = imposto; // Envia o imposto calculado para a View
+            Debug.WriteLine($"Imposto Calculado: {imposto}");
+            return View(model); // Retorna a mesma View com o resultado
+        }
+        return View(model); // Retorna a View com os erros de validação, se houver
+    }
+
+
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {

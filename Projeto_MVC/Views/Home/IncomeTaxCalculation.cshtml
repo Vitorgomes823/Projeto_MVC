@@ -1,11 +1,5 @@
-﻿<button style="border:none; background:none; padding:0; margin-left: 20px; cursor:pointer;" onclick="location.href='/Home/Services'">
-    <svg xmlns="http://www.w3.org/2000/svg" class="return" width="16" height="16" fill="currentColor" class="bi bi-arrow-left-circle" viewBox="0 0 16 16">
-        <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5z" />
-    </svg>
-</button>
-
-<div class="container mt-3">
-    <form>
+﻿<div class="container mt-3">
+    <form asp-controller="Home" asp-action="IncomeTaxCalculation" method="post">
         <div class="row">
             <!-- Card 1: Informações Pessoais -->
             <div class="col-md-3">
@@ -14,7 +8,7 @@
                         <h5 class="card-title">Informações Pessoais</h5>
                         <div class="mb-3">
                             <label for="name" class="form-label">Nome Completo</label>
-                            <input type="text" class="form-control" id="name" placeholder="Digite seu nome">
+                            <input type="text" class="form-control" id="name" name="Nome" placeholder="Digite seu nome" required>
                         </div>
                         <div class="mb-3">
                             <label for="cpf" class="form-label">CPF</label>
@@ -30,8 +24,8 @@
                     <div class="card-body">
                         <h5 class="card-title">Renda Anual/Bruta</h5>
                         <div class="mb-3">
-                            <label for="income" class="form-label">Renda Total (R$)</label>
-                            <input type="number" class="form-control" id="income" placeholder="Ex: 50000">
+                            <label for="RendaAnual" class="form-label">Renda Total (R$)</label>
+                            <input type="number" class="form-control" id="RendaAnual" name="RendaAnual" step="0.01" placeholder="Ex: 50000" required>
                         </div>
                     </div>
                 </div>
@@ -44,37 +38,40 @@
                         <h5 class="card-title">Deduções</h5>
                         <div class="mb-3">
                             <label for="dependents" class="form-label">Dependentes</label>
-                            <input type="number" class="form-control" id="dependents" placeholder="Quantidade">
+                            <input type="number" class="form-control" id="dependents" name="Dependentes" placeholder="Quantidade" required>
                         </div>
                         <div class="mb-3">
-                            <label for="education" class="form-label">Educação (R$)</label>
-                            <input type="number" class="form-control" id="education" placeholder="Valor gasto">
-                        </div>
-                        <div class="mb-3">
-                            <label for="health" class="form-label">Saúde (R$)</label>
-                            <input type="number" class="form-control" id="health" placeholder="Valor gasto">
+                            <label for="Deducoes" class="form-label">Deduções Extras (R$)</label>
+                            <input type="number" class="form-control" id="Deducoes" name="Deducoes" step="0.01" placeholder="Valor gasto">
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Card 4: Outras Informações -->
+            <!-- Card 4: Resultado -->
             <div class="col-md-3">
                 <div class="card h-100 shadow-sm">
                     <div class="card-body">
-                        <h5 class="card-title">Outras Informações</h5>
-                        <div class="mb-3">
-                            <label for="other" class="form-label">Informações Relevantes</label>
-                            <textarea class="form-control" id="other" rows="4" placeholder="Adicione outros dados importantes aqui"></textarea>
-                        </div>
+                        <h5 class="card-title">Resultado</h5>
+                        @if (ViewBag.Imposto != null)
+                        {
+                            <div class="alert alert-info mt-3">
+                                <strong>O imposto calculado é:</strong> @ViewBag.Imposto.ToString("C")
+                            </div>
+                        }
+                        else
+                        {
+                            <p class="text-muted">O cálculo será exibido aqui.</p>
+                        }
                     </div>
                 </div>
             </div>
+
         </div>
 
         <!-- Botão de Enviar -->
-        <div class="text-center mt-2">
-            <button type="submit" class="btn btn-success rounded-pill px-3 mt-2">Calcular Imposto</button>
+        <div class="text-center mt-4">
+            <button type="submit" class="btn btn-success rounded-pill px-4">Calcular Imposto</button>
         </div>
     </form>
 </div>
