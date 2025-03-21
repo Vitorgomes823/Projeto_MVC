@@ -5,7 +5,10 @@
 }
 
 <body class="text-center" style="justify-content:center">
-
+    @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+    {
+        <div class="text-danger" style="margin-bottom:5px">@error.ErrorMessage</div>
+    }
     <main class="form-signin card">
         <form asp-action="Login" method="post">
             <input type="hidden" name="_method" value="PATCH" />

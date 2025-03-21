@@ -66,12 +66,18 @@ public class HomeController : Controller
 
     [HttpPost]
     [AllowAnonymous]
-    public async Task<IActionResult> Login(string username, string password)
+    public async Task<IActionResult> Login(LoginModel model)
     {
-        var user = Users.SingleOrDefault(u => u.Username == username && u.Password == password);
+
+        if (!ModelState.IsValid)
+        {
+            return View("Index");
+        }
+
+        var user = Users.SingleOrDefault(u => u.Username == model.username && u.Password == model.password);
         if (user == null)
         {
-            ModelState.AddModelError("", "Invalid username or password"); //descobrir pq erro não exibe
+            ModelState.AddModelError("", "Usuário ou senha inválidos"); //descobrir pq erro não exibe
             return View("Index");
         }
 
