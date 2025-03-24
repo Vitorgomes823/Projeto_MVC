@@ -11,7 +11,7 @@ using Projeto_MVC.Data;
 namespace Projeto_MVC.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250324174310_IntialCreate")]
+    [Migration("20250324174555_IntialCreate")]
     partial class IntialCreate
     {
         /// <inheritdoc />
