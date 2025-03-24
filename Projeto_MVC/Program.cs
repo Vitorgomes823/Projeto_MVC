@@ -6,8 +6,13 @@ using System.Security.Claims;
 using System.Text.Encodings.Web;
 using System.Text;
 using Projeto_MVC.Models;
+using Projeto_MVC.Data;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlite("Data Source=CreateAcount.db"));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
