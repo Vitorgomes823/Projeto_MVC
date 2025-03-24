@@ -11,8 +11,8 @@ using Projeto_MVC.Data;
 namespace Projeto_MVC.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250324171757_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20250324174310_IntialCreate")]
+    partial class IntialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
