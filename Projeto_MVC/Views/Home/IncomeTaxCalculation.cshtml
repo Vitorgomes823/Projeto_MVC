@@ -53,15 +53,19 @@
                 <div class="card h-100 shadow-sm">
                     <div class="card-body">
                         <h5 class="card-title">Resultado</h5>
-                        @if (ViewBag.Imposto != null)
+                        @if (ViewBag.Imposto > 0)
                         {
                             <div class="alert alert-info mt-3">
                                 <strong>O imposto calculado é:</strong> @ViewBag.Imposto.ToString("C")
                             </div>
                         }
-                        else
+                        @if (ViewBag.Imposto == null)
                         {
                             <p class="text-muted">O cálculo será exibido aqui.</p>
+                        }
+                        @if (ViewBag.Imposto == 0)
+                        {
+                            <p class="alert alert-info mt-3" style="text-align:center"><strong>Insento</strong></p>
                         }
                     </div>
                 </div>
