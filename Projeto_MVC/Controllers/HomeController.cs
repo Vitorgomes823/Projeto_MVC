@@ -176,7 +176,7 @@ public class HomeController : Controller
         // Adiciona o usuário ao banco de dados
         _context.Users.Add(newUser);
         await _context.SaveChangesAsync(); // Salva as alterações no banco
-        _context.Database.ExecuteSqlRaw("PRAGMA wal_checkpoint(FULL);");
+        _context.Database.ExecuteSqlRaw("PRAGMA journal_mode=WAL;");
         _logger.LogInformation("Mudanças salvas no banco de dados com sucesso.");
 
 
