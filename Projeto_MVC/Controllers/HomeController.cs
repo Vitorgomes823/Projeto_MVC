@@ -123,11 +123,29 @@ public class HomeController : Controller
     }
 
 
-
-    public IActionResult Profile()
+    [Authorize]
+    public async Task<IActionResult> Profile()
     {
+        // Recupera o nome de usuário (email) das Claims
+        var username = User.Identity?.Name;
+
+        // Busca o usuário no banco de dados
+        var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == username);
+
+        if (user != null)
+        {
+            ViewBag.FullName = user.FullName;
+            ViewBag.Email = user.UserEmail;
+        }
+        else
+        {
+            // Caso o usuário não seja encontrado, trata o redirecionamento
+            return RedirectToAction("Error");
+        }
+
         return View();
     }
+
 
     public IActionResult Edit()
     {
