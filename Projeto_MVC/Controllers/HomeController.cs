@@ -5,16 +5,23 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Projeto_MVC.Models;
+using Microsoft.EntityFrameworkCore;
+using Projeto_MVC.Data;
+using SQLitePCL;
 
 namespace Projeto_MVC.Controllers;
 
 public class HomeController : Controller
 {
+   
     private readonly ILogger<HomeController> _logger;
+    private readonly AppDbContext _context;
 
-    public HomeController(ILogger<HomeController> logger)
+    public HomeController(ILogger<HomeController> logger, AppDbContext context)
     {
         _logger = logger;
+        _context = context;
+
     }
 
     private static readonly List<UserModel> Users = new List<UserModel>
@@ -114,17 +121,38 @@ public class HomeController : Controller
     [AllowAnonymous]
     public async Task<IActionResult> NewSignUp(string fullName, string cpf, DateTime birthDate, string username, string password)
     {
-        // Adicione o novo usuário lista de usuários
-        Users.Add(new UserModel { FullName = fullName, CPF = cpf, BirthDate = birthDate, Username = username, Password = password });
+        // Cria o novo usuário
+        var newUser = new UserModel
+        {
+            FullName = fullName,
+            CPF = cpf,
+            BirthDate = birthDate,
+            Username = username,
+            Password = password,
+            UserEmail = username
+        };
 
-        //// Autenticar o novo usuário
+        // Adiciona o usuário ao banco de dados
+        _context.Users.Add(newUser);
+        await _context.SaveChangesAsync(); // Salva as alterações no banco
+
+        // Autenticar o novo usuário
         var claims = new[] { new Claim(ClaimTypes.Name, username) };
         var identity = new ClaimsIdentity(claims, "BasicAuthentication");
         var principal = new ClaimsPrincipal(identity);
         await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
 
-        return RedirectToAction("Index"); 
+        return RedirectToAction("Index");
     }
+
+    [HttpGet]
+    [Route("api/users")]
+    public IActionResult GetUsers()
+    {
+        var users = _context.Users.ToList(); // Busca os usuários do banco
+        return Json(users); // Retorna os dados em formato JSON
+    }
+
 
     public IActionResult IncomeTaxCalculation()
     {
