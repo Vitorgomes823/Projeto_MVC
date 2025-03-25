@@ -76,6 +76,29 @@
                 confirmSenhaInput.reportValidity(); // Exibe o erro na View
             });
         });
+
+            document.addEventListener("DOMContentLoaded", function () {
+            const cpfInput = document.querySelector('input[name="cpf"]'); // Captura o campo de CPF
+
+            // Validação em tempo real do CPF
+            cpfInput.addEventListener("input", function () {
+                const cpfValue = cpfInput.value;
+
+                // Remove caracteres não numéricos (opcional)
+                cpfInput.value = cpfValue.replace(/\D/g, '');
+
+                // Verifica se o CPF tem mais de 11 dígitos
+                if (cpfInput.value.length > 11) {
+                    cpfInput.setCustomValidity("O CPF não pode ter mais de 11 dígitos!");
+                } else {
+                    cpfInput.setCustomValidity(""); // Remove mensagem de erro
+                }
+
+                // Exibe a mensagem de erro no campo
+                cpfInput.reportValidity();
+            });
+        });
+
     </script>
 
 </div>
