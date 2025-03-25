@@ -162,33 +162,48 @@ public class HomeController : Controller
     [AllowAnonymous]
     public async Task<IActionResult> NewSignUp(string fullName, string cpf, DateTime birthDate, string username, string password)
     {
-        // Cria o novo usuário
-        var newUser = new UserModel
+        // Início da lógica de criação de usuário
+        try
         {
-            FullName = fullName,
-            CPF = cpf,
-            BirthDate = birthDate,
-            Username = username,
-            Password = password,
-            UserEmail = username
-        };
+            // Cria o novo usuário
+            var newUser = new UserModel
+            {
+                FullName = fullName,
+                CPF = cpf,
+                BirthDate = birthDate,
+                Username = username,
+                Password = password,
+                UserEmail = username
+            };
 
-        // Adiciona o usuário ao banco de dados
-        _context.Users.Add(newUser);
-        await _context.SaveChangesAsync(); // Salva as alterações no banco
-        _context.Database.ExecuteSqlRaw("COMMIT;");
-        _context.Database.ExecuteSqlRaw("PRAGMA wal_checkpoint(FULL);");
-        _logger.LogInformation("Mudanças salvas no banco de dados com sucesso.");
+            // Adiciona o novo usuário ao banco de dados
+            _context.Users.Add(newUser);
 
+            // Salva as alterações no banco
+            await _context.SaveChangesAsync();
+            _context.Database.ExecuteSqlRaw("PRAGMA wal_checkpoint(FULL);");
+            _logger.LogInformation("Usuário salvo com sucesso no banco de dados.");
 
-        // Autenticar o novo usuário
-        var claims = new[] { new Claim(ClaimTypes.Name, username) };
-        var identity = new ClaimsIdentity(claims, "BasicAuthentication");
-        var principal = new ClaimsPrincipal(identity);
-        await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+            // Autenticação do usuário após cadastro
+            var claims = new[] { new Claim(ClaimTypes.Name, username) };
+            var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+            var principal = new ClaimsPrincipal(identity);
 
-        return RedirectToAction("Services");
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+
+            return RedirectToAction("Services");
+        }
+        catch (Exception ex)
+        {
+            // Loga o erro para análise e debugging
+            _logger.LogError($"Erro ao salvar no banco de dados: {ex.Message}");
+
+            // Redireciona para uma página de erro ou retorna uma mensagem de erro
+            ModelState.AddModelError("", "Erro ao criar a conta. Tente novamente.");
+            return View("SignUp");
+        }
     }
+
 
 
     public IActionResult IncomeTaxCalculation()
