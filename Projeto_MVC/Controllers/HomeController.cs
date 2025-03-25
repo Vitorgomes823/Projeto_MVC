@@ -142,7 +142,7 @@ public class HomeController : Controller
         var principal = new ClaimsPrincipal(identity);
         await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
 
-        return RedirectToAction("Index");
+        return RedirectToAction("Services");
     }
 
     [HttpGet]
