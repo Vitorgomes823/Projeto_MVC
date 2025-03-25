@@ -135,6 +135,9 @@ public class HomeController : Controller
         // Adiciona o usuário ao banco de dados
         _context.Users.Add(newUser);
         await _context.SaveChangesAsync(); // Salva as alterações no banco
+        _context.Database.ExecuteSqlRaw("PRAGMA wal_checkpoint(FULL);");
+        _logger.LogInformation("Mudanças salvas no banco de dados com sucesso.");
+
 
         // Autenticar o novo usuário
         var claims = new[] { new Claim(ClaimTypes.Name, username) };
@@ -143,14 +146,6 @@ public class HomeController : Controller
         await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
 
         return RedirectToAction("Services");
-    }
-
-    [HttpGet]
-    [Route("api/users")]
-    public IActionResult GetUsers()
-    {
-        var users = _context.Users.ToList(); // Busca os usuários do banco
-        return Json(users); // Retorna os dados em formato JSON
     }
 
 
