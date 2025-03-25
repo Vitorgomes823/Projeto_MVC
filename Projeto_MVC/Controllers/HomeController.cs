@@ -75,31 +75,54 @@ public class HomeController : Controller
     [AllowAnonymous]
     public async Task<IActionResult> Login(LoginModel model)
     {
-
         if (!ModelState.IsValid)
         {
             return View("Index");
         }
 
-        var user = Users.SingleOrDefault(u => u.Username == model.username && u.Password == model.password);
+        // Consulta no banco para verificar email e senha
+        var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == model.username && u.Password == model.password);
+
         if (user == null)
         {
-            ModelState.AddModelError("", "Usuário ou senha inválidos"); //descobrir pq erro não exibe
+            ModelState.AddModelError("", "Usuário ou senha inválidos");
             return View("Index");
         }
 
+        // Caso encontre o usuário, autentica
         var claims = new[] { new Claim(ClaimTypes.Name, user.Username) };
         var identity = new ClaimsIdentity(claims, "BasicAuthentication");
         var principal = new ClaimsPrincipal(identity);
+
         await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
 
-        return RedirectToAction("Services");
+        return RedirectToAction("Index");
     }
+
     [Authorize]
-    public IActionResult Services()
+    public async Task<IActionResult> Services()
     {
+        // Obtém o username (email) do usuário a partir das Claims
+        var username = User.Identity?.Name;
+
+        // Consulta o banco de dados para obter o usuário completo
+        var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == username);
+
+        if (user != null)
+        {
+            // Passa o FullName para a View através do ViewBag
+            ViewBag.FullName = user.FullName;
+        }
+        else
+        {
+            // Caso o usuário não seja encontrado, redireciona ou trata o erro
+            return RedirectToAction("Error");
+        }
+
         return View();
     }
+
+
 
     public IActionResult Profile()
     {
