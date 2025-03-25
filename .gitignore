@@ -361,3 +361,6 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/Projeto_MVC/CreateAcount.db-shm
+/Projeto_MVC/CreateAcount.db-wal
+/Projeto_MVC/CreateAcount.db
