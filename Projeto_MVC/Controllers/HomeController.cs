@@ -96,7 +96,7 @@ public class HomeController : Controller
 
         await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
 
-        return RedirectToAction("Index");
+        return RedirectToAction("Services");
     }
 
     [Authorize]
