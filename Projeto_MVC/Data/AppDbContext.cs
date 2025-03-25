@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Projeto_MVC.Models;
 
 namespace Projeto_MVC.Data
@@ -10,6 +11,7 @@ namespace Projeto_MVC.Data
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
         }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
