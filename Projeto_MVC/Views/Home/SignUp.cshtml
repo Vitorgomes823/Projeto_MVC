@@ -47,4 +47,35 @@
             </div>
         </form>
     </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Capturando os elementos
+            const emailInput = document.querySelector('input[name="username"]');
+            const confirmEmailInput = document.querySelectorAll('input[id="staticEmail"]')[1]; // Selecionando o segundo campo de email
+            const senhaInput = document.querySelector('input[name="password"]');
+            const confirmSenhaInput = document.querySelectorAll('input[id="inputPassword"]')[1]; // Selecionando o segundo campo de senha
+
+            // Validação em tempo real do email
+            confirmEmailInput.addEventListener("input", function () {
+                if (emailInput.value !== confirmEmailInput.value) {
+                    confirmEmailInput.setCustomValidity("Os emails não correspondem!");
+                } else {
+                    confirmEmailInput.setCustomValidity(""); // Remove mensagem de erro
+                }
+                confirmEmailInput.reportValidity(); // Exibe o erro na View
+            });
+
+            // Validação em tempo real da senha
+            confirmSenhaInput.addEventListener("input", function () {
+                if (senhaInput.value !== confirmSenhaInput.value) {
+                    confirmSenhaInput.setCustomValidity("As senhas não correspondem!");
+                } else {
+                    confirmSenhaInput.setCustomValidity(""); // Remove mensagem de erro
+                }
+                confirmSenhaInput.reportValidity(); // Exibe o erro na View
+            });
+        });
+    </script>
+
 </div>
