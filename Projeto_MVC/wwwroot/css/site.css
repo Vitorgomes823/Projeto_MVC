@@ -24,6 +24,7 @@ body {
 body {
     height: 100%;
     font-family: 'Century Gothic', sans-serif;
+    background-image: url(https://static.vecteezy.com/system/resources/previews/010/142/210/original/abstract-light-blue-minimal-background-with-dynamic-wavy-gradient-line-long-banner-business-template-asbtract-background-website-landing-page-template-for-websites-or-apps-modern-design-vector.jpg)
 }
 
 .form-signin {
@@ -81,4 +82,96 @@ body {
 }
 .return:hover {
     opacity: 1;
+}
+
+.fade-in {
+    opacity: 0;
+    animation: fadeIn 2s forwards;
+}
+
+.fade-in-image {
+    opacity: 0;
+    animation: fadeIn 2s 2s forwards; /* 2s de atraso */
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.btn-custom {
+    background-color: white;
+    color: #0D6EFD; /* Cor da fonte */
+    border-color: #0D6EFD; /* Contorno no mesmo tom */
+}
+
+    .btn-custom:hover {
+        background-color: #f0f8ff; /* Leve azul no hover */
+        color: #084298; /* Um azul mais escuro no hover */
+        border-color: #084298; /* Cor da borda no hover */
+    }
+
+/* Delay para cards */
+.card.fade-in {
+    animation-delay: 0s; /* O primeiro card começa imediatamente */
+}
+
+.card:nth-child(2).fade-in {
+    animation-delay: 0.5s; /* O segundo card começa após 0.5s */
+}
+
+.card:nth-child(3).fade-in {
+    animation-delay: 1s; /* O terceiro card começa após 1s */
+}
+
+.card:nth-child(4).fade-in {
+    animation-delay: 1.5s; /* O quarto card começa após 1.5s */
+}
+
+/* Botão */
+button.fade-in {
+    animation-delay: 2.5s; /* O botão começa após 2.5s */
+}
+
+/* Definição da animação */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.intro-card.fade-in {
+    animation-delay: 0s; /* Card introdutório aparece imediatamente */
+}
+
+.member-card:nth-child(1).fade-in {
+    animation-delay: 1s; /* Primeiro card de membro */
+}
+
+.member-card:nth-child(2).fade-in {
+    animation-delay: 2s; /* Segundo card de membro */
+}
+
+.member-card:nth-child(3).fade-in {
+    animation-delay: 3s; /* Terceiro card de membro */
+}
+
+/* Definição da animação */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
