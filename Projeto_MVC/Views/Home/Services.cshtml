@@ -1,14 +1,21 @@
 ﻿<div class="container col-xxl-8 px-4 py-5">
     <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
         <div class="col-10 col-sm-8 col-lg-6">
-            <img src="https://media.istockphoto.com/id/1418476287/pt/foto/businessman-analyzing-companys-financial-balance-sheet-working-with-digital-augmented-reality.jpg?b=1&s=612x612&w=0&k=20&c=EIy1m7z9GbXHloEqxzcdjzk1xFHvfw5TV_SK9O41Xdk=" class="d-block mx-lg-auto img-fluid" alt="Temas Bootstrap" width="700" height="500" loading="lazy">
+            <img src="https://media.istockphoto.com/id/1418476287/pt/foto/businessman-analyzing-companys-financial-balance-sheet-working-with-digital-augmented-reality.jpg?b=1&s=612x612&w=0&k=20&c=EIy1m7z9GbXHloEqxzcdjzk1xFHvfw5TV_SK9O41Xdk="
+                 class="fade-in-image d-block mx-lg-auto img-fluid"
+                 alt="Temas Bootstrap" width="700" height="500" loading="lazy">
         </div>
         <div class="col-lg-6">
-            <h1 class="display-5 fw-bold lh-1 mb-3"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Seja muito bem vindo, @ViewBag.FullName</font></font></h1>
-            <p class="lead"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">No momento estamos adicionando funcionalidades novas veja a que foi criada inicialmente</font></font></p>
+            <h1 class="fade-in display-5 fw-bold lh-1 mb-3" style="color: white">Seja muito bem vindo, @ViewBag.FullName</h1>
+            <p class="fade-in lead" style="color: white;">No momento estamos adicionando funcionalidades novas veja a que foi criada inicialmente</p>
             <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-                <button type="button" class="btn btn-primary rounded-pill px-3 mt-2" onclick="location.href='/Home/IncomeTaxCalculation'">Calculo de IR</button>
-                <button type="submit" class="btn btn-outline-primary rounded-pill px-3 mt-2" onclick="location.href='/Home/Profile'">Perfil</button>
+                <button type="button" class="btn btn-primary btn-custom rounded-pill px-3 mt-2" onclick="location.href='/Home/IncomeTaxCalculation'">
+                    <strong>Calculo de IR</strong>
+                </button>
+                <button type="submit" class="btn btn-secondary btn-custom rounded-pill px-3 mt-2" onclick="location.href='/Home/Profile'">
+                    <strong>Perfil</strong>
+                </button>
+
             </div>
         </div>
     </div>
