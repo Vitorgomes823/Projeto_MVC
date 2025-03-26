@@ -52,22 +52,22 @@ public class HomeController : Controller
 
 
     //Trabalhando nesse
-    //[HttpPost]
-    //public IActionResult Update(UserModel updatedUser)
-    //{
-    //    var user = Users.SingleOrDefault(u => u.Username == updatedUser.Username);
-    //    if (user == null)
-    //    {
-    //        return NotFound();
-    //    }
+    [HttpPost]
+    public IActionResult Update(UserModel updatedUser)
+    {
+        var user = Users.SingleOrDefault(u => u.Username == updatedUser.Username);
+        if (user == null)
+        {
+            return NotFound();
+        }
 
-    //    user.FullName = updatedUser.FullName;
-    //    user.CPF = updatedUser.CPF;
-    //    user.BirthDate = updatedUser.BirthDate;
-    //    user.Password = updatedUser.Password;
+        user.FullName = updatedUser.FullName;
+        user.CPF = updatedUser.CPF;
+        user.BirthDate = updatedUser.BirthDate;
+        user.Password = updatedUser.Password;
 
-    //    return RedirectToAction("Index");
-    //}
+        return RedirectToAction("Profile");
+    }
 
 
 
