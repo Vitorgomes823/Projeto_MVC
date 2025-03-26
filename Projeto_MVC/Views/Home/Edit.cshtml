@@ -6,20 +6,20 @@
 
 <div style="display: flex; justify-content: center; align-items: center;">
     <div style="width: 700px; background-color: #f5f5f5; border: 1px solid #ddd; border-radius: 10px; padding: 20px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
-        div style="text-align: center; margin-left: 3.5%">
+        <div style="text-align: center; margin-left: 3.5%">
         <img class="mb-4" src="https://static.vagas.com.br/portais-de-carreira/images/headers/original/fi-group-logo-com-a-escrita-em-azul.png?1653657031" alt="" width="120" height="57">
     </div>
         <form asp-action="Update" method="post">
-            <input class="form-control" type="text" name="fullName" placeholder="Nome Completo" aria-label="default input example">
+            <input class="form-control" type="text" name="fullName" value="@ViewBag.Fullname" aria-label="default input example">
             <br />
-            <input class="form-control" type="text" name="cpf" placeholder="CPF" aria-label="default input example">
+            <input class="form-control" type="text" name="cpf" placeholder="@ViewBag.CPF" aria-label="default input example" readonly>
             <br />
-            <input class="form-control" type="date" name="birthDate" placeholder="Data de nascimento" aria-label="default input example">
+            <input class="form-control" type="text" name="birthDate" placeholder="@ViewBag.BirthDate.ToString().Split(' ')[0]" aria-label="default input example" readonly>
             <br />
             <div class="mb-3 row">
                 <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" name="username" id="staticEmail" placeholder="exemplo@fi-group.com" style="background-color: white; border: 1px solid lightgray; border-radius: 5px;">
+                    <input type="text" class="form-control" name="username" id="staticEmail" placeholder="@ViewBag.Email" style="background-color: white; border: 1px solid lightgray; border-radius: 5px;" readonly>
                 </div>
             </div>
             <div class="mb-3 row">
@@ -29,13 +29,13 @@
                 </div>
             </div>
             <div class="mb-3 row">
-                <label for="inputPassword" class="col-sm-2 col-form-label">Senha</label>
+                <label for="inputPassword" class="col-sm-2 col-form-label"> Alterar Senha</label>
                 <div class="col-sm-10">
                     <input type="password" class="form-control" name="password" id="inputPassword">
                 </div>
             </div>
             <div class="mb-3 row">
-                <label for="inputPassword" class="col-sm-2 col-form-label">Confirme sua Senha</label>
+                <label for="inputPassword" class="col-sm-2 col-form-label">Confirme sua nova senha</label>
                 <div class="col-sm-10">
                     <input type="password" class="form-control" id="inputPassword">
                 </div>
