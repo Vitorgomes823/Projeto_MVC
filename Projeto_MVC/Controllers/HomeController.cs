@@ -136,6 +136,7 @@ public class HomeController : Controller
         {
             ViewBag.FullName = user.FullName;
             ViewBag.Email = user.UserEmail;
+
         }
         else
         {
@@ -147,10 +148,30 @@ public class HomeController : Controller
     }
 
 
-    public IActionResult Edit()
+    [Authorize]
+    public async Task<IActionResult> Edit()
     {
+        var username = User.Identity?.Name;
+
+        var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == username);
+
+        if (user != null)
+        {
+            ViewBag.FullName = user.FullName;
+            ViewBag.CPF = user.CPF;
+            ViewBag.Birthdate = user.BirthDate;
+            ViewBag.Email = user.UserEmail;
+            ViewBag.Password = user.Password;
+        }
+        else
+        {
+            // Caso o usuário não seja encontrado, trata o redirecionamento
+            return RedirectToAction("Error");
+        }
         return View();
     }
+
+
 
     [AllowAnonymous]
     public IActionResult SignUp()
