@@ -7,7 +7,7 @@
 <body class="text-center" style="justify-content:center;">
     @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
     {
-        <div class="text-danger" style="margin-bottom:5px">@error.ErrorMessage</div>
+        <div style="margin-bottom:5px; color: white">@error.ErrorMessage</div>
     }
     <main class="form-signin card" style="margin-top: 5%">
         <form asp-action="Login" method="post">
