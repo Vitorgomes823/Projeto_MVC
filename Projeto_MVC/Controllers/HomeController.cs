@@ -31,20 +31,6 @@ public class HomeController : Controller
     };
 
     [AllowAnonymous]
-    public IActionResult Index()
-    {
-        if (!User.Identity.IsAuthenticated)
-        {
-            return View("Index");
-        }
-
-        HomeModel home = new HomeModel();
-        home.UserName = "adimin";
-        home.UserEmail = "adm.vh@fi-group.com";
-        return View(home);
-    }
-
-    [AllowAnonymous]
     public IActionResult Privacy()
     {
         return View();
@@ -69,7 +55,10 @@ public class HomeController : Controller
         return RedirectToAction("Profile");
     }
 
-
+    public IActionResult Index()
+    {
+        return View();
+    }
 
     [HttpPost]
     [AllowAnonymous]
@@ -96,8 +85,19 @@ public class HomeController : Controller
 
         await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
 
+        // Verifica se "Lembre de mim" está marcado
+        if (model.rememberMe)
+        {
+            var cookieOptions = new CookieOptions
+            {
+                Expires = DateTime.Now.AddDays(30) // Define o cookie para expirar em 30 dias
+            };
+            Response.Cookies.Append("Username", model.username, cookieOptions);
+        }
+
         return RedirectToAction("Services");
     }
+
 
     [Authorize]
     public async Task<IActionResult> Services()

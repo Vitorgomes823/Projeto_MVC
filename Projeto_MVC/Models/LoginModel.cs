@@ -9,5 +9,6 @@ namespace Projeto_MVC.Models
 
         [Required(ErrorMessage = "O campo Senha é obrigatório.")]
         public string password { get; set; }
+        public bool rememberMe { get; set; }
     }
 }
