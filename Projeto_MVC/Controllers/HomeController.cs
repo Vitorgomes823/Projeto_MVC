@@ -148,6 +148,15 @@ public class HomeController : Controller
     }
 
 
+    public static string FormatarCPF(string CPF)
+    {
+        if (string.IsNullOrEmpty(CPF) || CPF.Length != 11)
+            return CPF; // Retorna o CPF sem alterações se ele for inválido
+
+        // Formata o CPF manualmente
+        return $"{CPF.Substring(0, 3)}.{CPF.Substring(3, 3)}.{CPF.Substring(6, 3)}-{CPF.Substring(9, 2)}";
+    }
+
     [Authorize]
     public async Task<IActionResult> Edit()
     {
@@ -158,7 +167,7 @@ public class HomeController : Controller
         if (user != null)
         {
             ViewBag.FullName = user.FullName;
-            ViewBag.CPF = user.CPF;
+            ViewBag.CPF = FormatarCPF(user.CPF);
             ViewBag.Birthdate = user.BirthDate;
             ViewBag.Email = user.UserEmail;
             ViewBag.Password = user.Password;
