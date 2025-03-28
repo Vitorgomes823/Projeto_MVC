@@ -179,3 +179,12 @@ button.fade-in {
 #myCarousel {
     margin-top: -100px;
 }
+
+.icons {
+    fill: #0000A9; 
+    transition: 0.5s ease;
+}
+
+    .icons:hover {
+        fill: #00AFFF
+    }
