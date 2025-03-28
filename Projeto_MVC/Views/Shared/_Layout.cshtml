@@ -63,7 +63,14 @@
 </svg>
                             </a>
                         </li>
+                       
                     </ul>
+
+                    @if (Context.Request.Path != "/Home/Index" && ViewBag.MostrarBotao != null && (bool)ViewBag.MostrarBotao)
+                    {
+                        <button class="btn btn-primary ms-auto" onclick="location.href='/Home/Profile'">Perfil</button>
+                    }
+
                 </div>
             </div>
         </nav>

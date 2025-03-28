@@ -175,3 +175,7 @@ button.fade-in {
         opacity: 1;
     }
 }
+
+#myCarousel {
+    margin-top: -100px;
+}

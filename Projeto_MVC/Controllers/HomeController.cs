@@ -8,6 +8,7 @@ using Projeto_MVC.Models;
 using Microsoft.EntityFrameworkCore;
 using Projeto_MVC.Data;
 using SQLitePCL;
+using Microsoft.AspNetCore.Http;
 
 namespace Projeto_MVC.Controllers;
 
@@ -60,13 +61,12 @@ public class HomeController : Controller
         return View();
     }
 
-    [HttpPost]
     [AllowAnonymous]
     public async Task<IActionResult> Login(LoginModel model)
     {
         if (!ModelState.IsValid)
         {
-            return View("Index");
+            return View("Index"); // Retorna a página de login se o modelo for inválido.
         }
 
         // Consulta no banco para verificar email e senha
@@ -75,7 +75,7 @@ public class HomeController : Controller
         if (user == null)
         {
             ModelState.AddModelError("", "Usuário ou senha inválidos");
-            return View("Index");
+            return View("Index"); // Retorna a página de login se o usuário não for encontrado.
         }
 
         // Caso encontre o usuário, autentica
@@ -85,16 +85,19 @@ public class HomeController : Controller
 
         await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
 
+        model.rememberMe = false;  // Garante que o checkbox está desmarcado
+
         // Verifica se "Lembre de mim" está marcado
         if (model.rememberMe)
         {
-            var cookieOptions = new CookieOptions
-            {
-                Expires = DateTime.Now.AddDays(30) // Define o cookie para expirar em 30 dias
-            };
-            Response.Cookies.Append("Username", model.username, cookieOptions);
+            View("Services");
+        }
+        else
+        {
+            Response.Cookies.Delete("Username"); // Remove o cookie se "Lembre de mim" não estiver marcado
         }
 
+        // Retorna ao painel ou página de serviços após autenticação bem-sucedida
         return RedirectToAction("Services");
     }
 
@@ -102,6 +105,8 @@ public class HomeController : Controller
     [Authorize]
     public async Task<IActionResult> Services()
     {
+        ViewBag.MostrarBotao = true;
+
         // Obtém o username (email) do usuário a partir das Claims
         var username = User.Identity?.Name;
 
