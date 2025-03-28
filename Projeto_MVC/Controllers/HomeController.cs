@@ -34,6 +34,7 @@ public class HomeController : Controller
     [AllowAnonymous]
     public IActionResult Privacy()
     {
+        ViewBag.MostrarBotao = true;
         return View();
     }
 
@@ -58,6 +59,7 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
+        ViewBag.MostrarBotao = false;
         return View();
     }
 
@@ -131,6 +133,7 @@ public class HomeController : Controller
     [Authorize]
     public async Task<IActionResult> Profile()
     {
+        ViewBag.MostrarBotao = true;
         // Recupera o nome de usuário (email) das Claims
         var username = User.Identity?.Name;
 
@@ -165,6 +168,7 @@ public class HomeController : Controller
     [Authorize]
     public async Task<IActionResult> Edit()
     {
+        ViewBag.MostrarBotao = true;
         var username = User.Identity?.Name;
 
         var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == username);
@@ -243,6 +247,7 @@ public class HomeController : Controller
 
     public IActionResult IncomeTaxCalculation()
     {
+        ViewBag.MostrarBotao = true;
         return View();
     }
 
